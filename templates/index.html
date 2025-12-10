@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpamDetect AI</title>
+  <!-- Bootstrap CSS & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #121212;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar */
+    .navbar-dark .navbar-nav .nav-link {
+      color: #fff;
+      margin-right: 1rem;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    .navbar-dark .navbar-nav .nav-link:hover {
+      color: #ffc107;
+      transform: translateY(-2px);
+    }
+    .navbar-dark .btn-nav {
+      font-weight: 600;
+      background: #ffc107;
+      color: #121212;
+      border-radius: 50px;
+      padding: 0.5rem 1.5rem;
+      transition: 0.3s;
+    }
+    .navbar-dark .btn-nav:hover {
+      background: #e0a800;
+      transform: translateY(-2px);
+      color: #121212;
+    }
+
+    /* Carousel */
+    .carousel-item {
+      height: 80vh;
+      min-height: 300px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .carousel-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+    }
+    .carousel-caption {
+      position: absolute;
+      bottom: 15%;
+      z-index: 2;
+      text-align: center;
+    }
+    .carousel-caption h3 {
+      font-size: 3rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #ffc107;
+      letter-spacing: 1px;
+    }
+    .carousel-caption p {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #fff;
+    }
+    .carousel-caption .btn {
+      font-weight: 600;
+    }
+
+    /* Section Titles */
+    section h2 {
+      color: #ffc107;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    /* Info Section */
+    .info-section {
+      background-color: #1a1a1a;
+      padding: 5rem 1rem;
+    }
+    .info-section .card {
+      background: #1f1f1f;
+      border: none;
+      color: #fff;
+      transition: 0.3s;
+      text-align: center;
+    }
+    .info-section .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    }
+    .info-section img {
+      width: 90px;
+      height: 90px;
+      margin-bottom: 1rem;
+    }
+
+    /* Why Spam Detection Matters */
+    .why-section {
+      background: #181818;
+      padding: 5rem 1rem;
+    }
+    .why-section .content {
+      text-align: left;
+    }
+    .why-section img {
+      border-radius: 30px;
+      width: 85%;
+      object-fit: cover;
+  
+    }
+
+    /* New Sections */
+    .feature-section, .workflow-section, .testimonial-section {
+      background: #1a1a1a;
+      padding: 5rem 1rem;
+    }
+    .workflow-section img, .feature-section img, .testimonial-section img {
+      border-radius: 10px;
+      width: 75%;
+      object-fit: cover;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background-color: #1f1f1f;
+      padding: 4rem 1rem;
+      text-align: center;
+      border-top: 2px solid #ffc107;
+    }
+
+    /* Footer */
+    footer {
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .carousel-caption h3 {
+        font-size: 2rem;
+      }
+      .carousel-caption p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">SpamDetect AI</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+        <li class="nav-item"><a class="nav-link btn-nav ms-3" href="{{ url_for('form') }}">Spam Check</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Carousel -->
+<div id="homepageCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active" style="background-image: url('https://i.pinimg.com/736x/35/9b/89/359b8907c2c4dbe29f7481022779c0f5.jpg');">
+      <div class="carousel-caption">
+        <h3><strong>Stop Spam. Stay Safe.</strong></h3>
+        <p><strong>Empower your inbox with the intelligence of SpamDetect AI.</strong><br>Protect yourself from malicious attacks, scams, and phishing attempts effortlessly.</p>
+        <a href="#info" class="btn btn-warning btn-lg mt-3">Learn More</a>
+      </div>
+    </div>
+    <div class="carousel-item" style="background-image: url('https://i.pinimg.com/736x/01/44/78/014478db9b85f130a6ea610f94b67c0f.jpg');">
+      <div class="carousel-caption">
+        <h3><strong>AI That Protects You</strong></h3>
+        <p><strong>Detect spam, phishing, and malicious messages in seconds.</strong><br>AI-driven analysis that keeps your inbox and devices secure 24/7.</p>
+        <a href="#why" class="btn btn-warning btn-lg mt-3">Explore Features</a>
+      </div>
+    </div>
+    <div class="carousel-item" style="background-image: url('https://i.pinimg.com/1200x/1a/9e/44/1a9e44af834af4fe0bab74348a68ddaa.jpg');">
+      <div class="carousel-caption">
+        <h3><strong>Smart. Secure. Swift.</strong></h3>
+        <p><strong>Experience lightning-fast AI detection that adapts to new threats.</strong><br>Cutting-edge security for your emails, messages, and networks.</p>
+        <a href="#check" class="btn btn-warning btn-lg mt-3">Try Now</a>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#homepageCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#homepageCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<!-- Info Section -->
+<section id="info" class="info-section container">
+  <h2>How SpamDetect AI Makes Your Digital Life Safer</h2>
+  <p class="text-center mb-5">Our advanced algorithms filter, analyze, and classify content in real time. SpamDetect AI is more than a detection system — it’s a guardian for your digital communication.</p>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card p-4 h-100">
+        <img src="https://cdn-icons-png.flaticon.com/512/3039/3039436.png" alt="Real-Time Protection">
+        <h5 class="fw-bold mt-3">Real-Time Protection</h5>
+        <p>Identifies malicious and unwanted emails or messages instantly. Works with continuous background monitoring to block threats before they spread.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-4 h-100">
+        <img src="https://cdn-icons-png.flaticon.com/512/942/942748.png" alt="Threat Awareness">
+        <h5 class="fw-bold mt-3">Threat Awareness</h5>
+        <p>Educates users about common scams, phishing, and social engineering tricks with examples and alerts. Stay informed, stay protected.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-4 h-100">
+        <img src="https://cdn-icons-png.flaticon.com/512/1159/1159643.png" alt="Global Insights">
+        <h5 class="fw-bold mt-3">Global Insights</h5>
+        <p>Analyzes millions of data points globally. Learns from patterns to prevent new spam outbreaks before they reach your inbox.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Spam Detection Matters -->
+<section id="why" class="why-section container">
+  <h2>Why Spam Detection Matters</h2>
+  <div class="row align-items-center mt-4">
+    <div class="col-md-6">
+      <img src="https://i.pinimg.com/736x/ea/c1/2d/eac12d7e7a767bb0d1f4acdd1e268152.jpg" alt="Spam Risk">
+    </div>
+    <div class="col-md-6 content">
+      <h4 class="text-warning fw-bold">The Hidden Dangers of Spam</h4>
+      <p>Spam emails and messages often disguise malicious intent. They can steal personal data, financial details, and even install malware silently.</p>
+      <h4 class="text-warning fw-bold mt-4">How SpamDetect AI Protects You</h4>
+      <p>SpamDetect AI filters, scores, and flags suspicious messages using AI and natural language processing — detecting anomalies before they cause harm.</p>
+      <ul>
+        <li>⚡ Real-time spam and phishing detection</li>
+        <li>🔒 Privacy-focused scanning process</li>
+        <li>📈 Machine learning for adaptive accuracy</li>
+        <li>🧠 Predictive algorithms to block new threats</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- New Section: AI Workflow -->
+<section class="workflow-section container">
+  <h2>Behind the Scenes: How Our AI Works</h2>
+  <p class="text-center mb-4">SpamDetect AI uses layered intelligence combining data processing, natural language understanding, and predictive learning models. Here’s a quick overview of how we protect your inbox.</p>
+  <div class="row align-items-center">
+    <div class="col-md-6">
+      <ul>
+        <li><strong>Step 1:</strong> Collects incoming messages from multiple sources such as emails, SMS, and chat platforms. The system gathers text data securely, ensuring no personal details are exposed during processing.</li>
+        <li><strong>Step 2:</strong> Applies keyword and pattern analysis to detect common spam indicators like suspicious URLs, fake offers, and repetitive phrases often used by scammers. This step filters out the majority of junk messages quickly and efficiently.</li>
+        <li><strong>Step 3:</strong> Uses advanced machine learning algorithms to classify messages as spam or non-spam. The AI model learns from millions of examples, improving its accuracy with every new dataset. It doesn’t just rely on words — it also studies tone, intent, and message structure.</li>
+        <li><strong>Step 4:</strong> : Updates its detection database daily with newly discovered spam trends, scam techniques, and phishing patterns. This ensures SpamDetect AI stays one step ahead of evolving cyber threats.</li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <img src="https://i.pinimg.com/736x/31/45/be/3145bec948c0a5ad359c443a8ecdd5d8.jpg" alt="AI Workflow Diagram">
+    </div>
+  </div>
+</section>
+
+<!-- New Section: Features & Photos -->
+<section class="feature-section container">
+  <h2>Explore SpamDetect AI in Action</h2>
+  <p class="text-center mb-5">Get a closer look at our user interface, live detection reports, and alert dashboard.</p>
+  <div class="row g-4">
+    <div class="col-md-4"><img src="https://i.pinimg.com/1200x/23/f6/f3/23f6f38346bd7ab660d5939154b2eac7.jpg" alt="Dashboard Photo"></div>
+    <div class="col-md-4"><img src="https://i.pinimg.com/736x/61/a6/c7/61a6c74d0233945cd6f13f88c20cebfd.jpg" alt="AI Visualization"></div>
+    <div class="col-md-4"><img src="https://i.pinimg.com/1200x/44/d0/31/44d031d450d26ceb468aa57fdd0222ba.jpg" alt="Security Interface"></div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonial-section container">
+  <h2>What Our Users Say</h2>
+  <p class="text-center mb-5">Trusted by individuals and organizations worldwide for intelligent, reliable spam detection.</p>
+  <div class="row g-4">
+    <div class="col-md-4 text-center">
+      <img src="https://i.pinimg.com/1200x/0f/94/3d/0f943dd6eeba91b71f7268a44ef1622f.jpg" alt="User 1">
+      <p class="mt-3">“SpamDetect AI saved me from countless phishing attempts. The detection speed is impressive!”</p>
+    </div>
+    <div class="col-md-4 text-center">
+      <img src="https://i.pinimg.com/736x/9a/a0/bc/9aa0bc99645d66f1949ddefa3f700d0f.jpg" alt="User 2">
+      <p class="mt-3">“As a business owner, I rely on SpamDetect AI for employee inbox safety. It’s accurate and easy to use.”</p>
+    </div>
+    <div class="col-md-4 text-center">
+      <img src="https://i.pinimg.com/1200x/a6/44/91/a6449101d81731a30254d352607d6069.jpg" alt="User 3">
+      <p class="mt-3">“This tool doesn’t just detect spam — it helps me understand what’s behind each message type.”</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section id="check" class="cta-section">
+  <h2 class="fw-bold mb-3">Take Control of Your Inbox Today</h2>
+  <p class="lead mb-4">Join thousands of users who trust SpamDetect AI to keep their communication safe. Start scanning suspicious messages in seconds and enjoy peace of mind.</p>
+  <a href="{{ url_for('form') }}" class="btn btn-warning btn-lg me-2">Start Checking</a>
+  <a href="#contact" class="btn btn-outline-light btn-lg">Contact Us</a>
+</section>
+
+<!-- Footer -->
+<footer id="contact" class="bg-dark text-center py-4 mt-5 border-top border-secondary">
+  <p>&copy; 2025 SpamDetect AI. All Rights Reserved.</p>
+  <p>Contact: support@spamdetect.ai | Phone: +91 1234567890</p>
+  <p class="mt-2">Follow us on 
+    <i class="bi bi-twitter mx-1"></i>
+    <i class="bi bi-facebook mx-1"></i>
+    <i class="bi bi-linkedin mx-1"></i>
+    <i class="bi bi-instagram mx-1"></i>
+  </p>
+  <p class="text-secondary">Empowering safe digital communication through innovation, AI, and trust.</p>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
